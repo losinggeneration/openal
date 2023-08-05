@@ -100,7 +100,7 @@ func OpenDevice(devicename *string) *Device {
 	var d Device
 	if devicename != nil {
 		str := C.CString(*devicename)
-		defer C.free(str)
+		defer C.free(unsafe.Pointer(str))
 		d.device = C.alcOpenDevice((*C.ALCchar)(unsafe.Pointer(str)))
 	} else {
 		d.device = C.alcOpenDevice(nil)
